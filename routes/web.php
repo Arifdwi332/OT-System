@@ -48,3 +48,7 @@ Route::delete('/karyawan/delete/{npk}', [KaryawanController::class, 'destroy']);
 //Overtime Plan
 Route::get('/overtime',[OvertimeController::class,'index']); 
 Route::get('/overtime/planning',[OvertimeController::class,'planning']); 
+Route::post('/overtime/store', [OvertimeController::class, 'store'])->name('overtime.store');   // Route untuk menyimpan data dari form
+
+
+

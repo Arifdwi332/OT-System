@@ -5,13 +5,138 @@
 @endsection
 
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{ route('overtime.store') }}" method="POST">
+                @csrf
+                <!-- Pengajuan Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Pengajuan</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="tanggal">Tanggal</label>
+                            <input type="date" name="tanggal" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="department_id">Department</label>
+                            <select name="department_id" class="form-control" required>
+                                <!-- Populate with department data -->
+                                @foreach($department as $dept)
+                                <option value="{{ $dept->id }}">{{ $dept->nama }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detail Pengajuan Section (Dynamic) -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Detail Pengajuan</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table" id="employee-table">
+                            <thead>
+                                <tr>
+                                    <th>NPK</th>
+                                    <th>Jadwal Kerja</th>
+                                    <th>Pekerjaan Yang Dilakukan</th>
+                                    <th>Keterangan</th>
+                                    <th>TUL</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="employee-rows">
+                                <tr>
+                                    <td><input type="number" name="npk[]" class="form-control" required></td>
+                                    <td>
+                                        <select name="jadwal_kerja[]" class="form-control" required>
+                                            <option value="shift 1">Shift 1</option>
+                                            <option value="shift 2">Shift 2</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="text" name="pekerjaan_yang_dilakukan[]" class="form-control" required></td>
+                                    <td><input type="text" name="keterangan[]" class="form-control"></td>
+                                    <td><input type="number" name="tul[]" class="form-control"></td>
+                                    <td><button type="button" class="btn btn-danger remove-row">Hapus</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" id="add-employee" class="btn btn-success">Tambah Karyawan</button>
+                    </div>
+                </div>
+
+                <!-- Plan Overtime Section -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Plan Overtime</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="waktu_mulai">Waktu Mulai</label>
+                            <input type="time" name="waktu_mulai" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="waktu_selesai">Waktu Selesai</label>
+                            <input type="time" name="waktu_selesai" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="total_waktu">Total Waktu (Jam)</label>
+                            <input type="number" name="total_waktu" class="form-control" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary">Submit Planning</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('js')
+<script>
+// Add new row for employee
+$('#add-employee').click(function() {
+    $('#employee-rows').append(`
+        <tr>
+            <td><input type="number" name="npk[]" class="form-control" required></td>
+            <td>
+                <select name="jadwal_kerja[]" class="form-control" required>
+                    <option value="shift 1">Shift 1</option>
+                    <option value="shift 2">Shift 2</option>
+                </select>
+            </td>
+            <td><input type="text" name="pekerjaan_yang_dilakukan[]" class="form-control" required></td>
+            <td><input type="text" name="keterangan[]" class="form-control"></td>
+            <td><input type="number" name="tul[]" class="form-control"></td>
+            <td><button type="button" class="btn btn-danger remove-row">Hapus</button></td>
+        </tr>
+    `);
+});
+
+// Remove row
+$(document).on('click', '.remove-row', function() {
+    $(this).closest('tr').remove();
+});
+</script>
+@endsection
+
+{{-- @section('content')
 <div class="card card-secondary">
     <div class="card-header">
         <h3 class="card-title">Lembur Kolektif</h3>
         <button class="btn btn-success float-right">Upload .csv .xlsx</button>
     </div>
     <div class="card-body">
-        <form action="" method="POST">
+        <form action="{{ route('overtime.store') }}" method="POST"> <!-- Tambahkan route ke form action -->
+            @csrf
             <table class="table table-bordered">
                 <tr>
                     <td>
@@ -29,17 +154,15 @@
                     </td>
                     <td>
                         <label>Departemen</label>
-                            <select class="form-control select2" style="width: 100%;" name="departemments_id">
-                                <option value="1">1</option>
-                                @foreach($departements as $department)
-                                    <option value="{{ $department->id }}">{{ $department->nama }}</option>
-                                @endforeach
-                            </select>
-                        <input type="hidden" value="pending" name="current_status" id="current_status">
-                        <input type="hidden" value="pending" name="current_approver" id="current_approver">
+                        <select class="form-control select2" style="width: 100%;" name="departemments_id">
+                            @foreach($departements as $department)
+                                <option value="{{ $department->id }}">{{ $department->nama }}</option>
+                            @endforeach
+                        </select>
                     </td>
                 </tr>
             </table>
+
             <table class="table table-bordered mt-4" id="table">
                 <tr>
                     <th>NPK</th>
@@ -53,46 +176,28 @@
                     <th>Aksi</th>
                 </tr>
                 <tr>
+                    <td><input type="text" name="npk[]" placeholder="npk" class="form-control"></td>
+                    <td><input type="text" name="jadwal_kerja[]" placeholder="jadwal kerja" class="form-control"></td>
+                    <td><input type="text" name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></td>
+                    <td><input type="text" name="waktu_mulai[]" placeholder="mulai" class="form-control"></td>
+                    <td><input type="text" name="waktu_selesai[]" placeholder="selesai" class="form-control"></td>
+                    <td><input type="text" name="total_waktu[]" placeholder="total waktu" class="form-control"></td>
+                    <td><input type="text" name="keterangan[]" placeholder="keterangan" class="form-control"></td>
+                    <td><input type="text" name="tul[]" placeholder="tul" class="form-control"></td>
                     <td>
-                        <input type="text" name="npk[]" id="npk" placeholder="npk" class="form-control">
-                    </td>
-                    <td>
-                        <input type="text" name="jadwal_kerja[]" id="jadwal_kerja" placeholder="jadwal_kerja" class="form-control">
-                    </td>
-                    <td>
-                        <input type="text" name="pekerjaan_yang_dilakukan[]" id="pekerjaan_yang_dilakukan" placeholder="pekerjaan_yang_dilakukan" class="form-control">
-                    </td>
-                    <td>
-                        <input type="text" name="waktu_mulai[]" id="" class="form-control" placeholder="mulai">
-                    </td>
-                    <td>
-                        <input type="text" name="waktu_selesai[]" id="" class="form-control" placeholder="selesai">
-                    </td>
-                    <td>
-                        <input type="text" name="total_waktu[]" id="" class="form-control" placeholder="total waktu">
-                    </td>
-                    <td>
-                        <input type="text" name="keterangan[]" id="keterangan" placeholder="keterangan" class="form-control">
-                    </td>
-                    <td>
-                        <input type="text" name="tul[]" id="tul" placeholder="tul" class="form-control">
-                        <input type="text" name="status[]" id="status" placeholder="status" class="form-control" hidden>
-                    </td>
-                    <td>
-                        <button class="btn btn-primary" type="button" name="add" id="add">
-                            tambah
-                        </button>
+                        <button class="btn btn-primary" type="button" id="add">Tambah</button>
                     </td>
                 </tr>
             </table>
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-success float-right">Ajukan</button>
+                <a href="/overtime" class="btn btn-outline-primary">Kembali</a>
+            </div>
         </form>
     </div>
-
-    <div class="card-footer">
-        <button type="submit" class="btn btn-success float-right">Ajukan</button>
-        <a href="/overtime" class="btn btn-outline-primary">Kembali</a>
-    </div>
 </div>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -101,36 +206,15 @@
             ++i;
             $('#table').append(`
             <tr>
-                <td>
-                    <input type="text" name="npk[]" id="npk" placeholder="npk" class="form-control">
-                </td>
-                <td>
-                    <input type="text" name="jadwal_kerja[]" id="jadwal_kerja" placeholder="jadwal_kerja" class="form-control">
-                </td>
-                <td>
-                    <input type="text" name="pekerjaan_yang_dilakukan[]" id="pekerjaan_yang_dilakukan" placeholder="pekerjaan_yang_dilakukan" class="form-control">
-                </td>
-                <td>
-                    <input type="text" name="waktu_mulai[]" id="" class="form-control" placeholder="mulai">
-                </td>
-                <td>
-                     <input type="text" name="waktu_selesai[]" id="" class="form-control" placeholder="selesai">
-                </td>
-                <td>
-                    <input type="text" name="total_waktu[]" id="" class="form-control" placeholder="total waktu">
-                </td>
-                <td>
-                    <input type="text" name="keterangan[]" id="keterangan" placeholder="keterangan" class="form-control">
-                </td>
-                <td>
-                    <input type="text" name="tul[]" id="tul" placeholder="tul" class="form-control">
-                    <input type="text" name="status[]" id="status" placeholder="status" class="form-control" hidden>
-                </td>   
-                <td>
-                    <button class="btn btn-danger remove-table-row" type="button">
-                        hapus
-                    </button>
-                </td>
+                <td><input type="text" name="npk[]" placeholder="npk" class="form-control"></td>
+                <td><input type="text" name="jadwal_kerja[]" placeholder="jadwal kerja" class="form-control"></td>
+                <td><input type="text" name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></td>
+                <td><input type="text" name="waktu_mulai[]" placeholder="mulai" class="form-control"></td>
+                <td><input type="text" name="waktu_selesai[]" placeholder="selesai" class="form-control"></td>
+                <td><input type="text" name="total_waktu[]" placeholder="total waktu" class="form-control"></td>
+                <td><input type="text" name="keterangan[]" placeholder="keterangan" class="form-control"></td>
+                <td><input type="text" name="tul[]" placeholder="tul" class="form-control"></td>
+                <td><button class="btn btn-danger remove-table-row" type="button">Hapus</button></td>
             </tr>
             `);
         });
@@ -140,4 +224,4 @@
         });
     });
 </script>
-@endsection
+@endsection --}}
