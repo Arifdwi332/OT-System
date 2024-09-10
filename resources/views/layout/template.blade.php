@@ -170,243 +170,90 @@
                 </p>
               </a>
             </li>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-user-clock nav-icon"></i>
-                  <p>
-                    Personal
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="#" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="pages/widgets.html" class="nav-link">
-                  <i class="nav-icon fas fa-database"></i>
-                  <p>
-                    Log Data Lembur
-                  </p>
-                </a>
-              </li>
-            </ul>
           </li>
           <li class="nav-header">Section Head</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-clock"></i>
-              <p>
-                Approval Lembur
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-stream nav-icon"></i>
-                  <p>
-                    Kolektif
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/lemburKolektif" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-user-clock nav-icon"></i>
-                  <p>
-                    Personal
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/lemburPersonal" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="pages/widgets.html" class="nav-link">
-                  <i class="nav-icon fas fa-database"></i>
-                  <p>
-                    Log Data Lembur
-                  </p>
-                </a>
-              </li>
-            </ul>
+                <i class="nav-icon fas fa-clock"></i>
+                <p>
+                  Approval Overtime
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Planning
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Actual
+                    </p>
+                  </a>
+                </li>
+              </ul>
           </li>
           <li class="nav-header">Departemen Head</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-clock"></i>
-              <p>
-                Approval Lembur
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-stream nav-icon"></i>
-                  <p>
-                    Kolektif
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/lemburKolektif" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-user-clock nav-icon"></i>
-                  <p>
-                    Personal
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/lemburPersonal" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="pages/widgets.html" class="nav-link">
-                  <i class="nav-icon fas fa-database"></i>
-                  <p>
-                    Log Data Lembur
-                  </p>
-                </a>
-              </li>
-            </ul>
+                <i class="nav-icon fas fa-clock"></i>
+                <p>
+                  Approval Overtime
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Planning
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Actual
+                    </p>
+                  </a>
+                </li>
+              </ul>
           </li>
           <li class="nav-header">Divisi Head</li>
           <li class="nav-item">
             <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-clock"></i>
-              <p>
-                Approval Lembur
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-stream nav-icon"></i>
-                  <p>
-                    Kolektif
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/lemburKolektif" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fas fa-user-clock nav-icon"></i>
-                  <p>
-                    Personal
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="/lemburPersonal" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Pengajuan</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Aktual</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="pages/widgets.html" class="nav-link">
-                  <i class="nav-icon fas fa-database"></i>
-                  <p>
-                    Log Data Lembur
-                  </p>
-                </a>
-              </li>
-            </ul>
+                <i class="nav-icon fas fa-clock"></i>
+                <p>
+                  Approval Overtime
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Planning
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Actual
+                    </p>
+                  </a>
+                </li>
+              </ul>
           </li>
           <li class="nav-header">HRD</li>
           
