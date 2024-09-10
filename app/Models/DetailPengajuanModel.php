@@ -13,8 +13,8 @@ class DetailPengajuanModel extends Model
 
     protected $fillable = [
         'pengajuan_id',
-        'jadwal_kerja',
         'npk',
+        'jadwal_kerja',
         'pekerjaan_yang_dilakukan',
         'keterangan',
         'tul',

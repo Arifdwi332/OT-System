@@ -140,13 +140,13 @@
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-clock"></i>
               <p>
-                Lembur Kolektif
+                Overtime
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/pengajuan" class="nav-link">
+                <a href="/overtime" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Planning
@@ -157,7 +157,7 @@
                 <a href="#" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
-                    Aktual
+                    Actual
                   </p>
                 </a>
               </li>
@@ -181,13 +181,13 @@
                 </a>
                 <ul class="nav nav-treeview">
                   <li class="nav-item">
-                    <a href="/lemburPersonal" class="nav-link">
+                    <a href="#" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Pengajuan</p>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a href="/lemburKolektifAktual" class="nav-link">
+                    <a href="#" class="nav-link">
                       <i class="far fa-circle nav-icon"></i>
                       <p>Aktual</p>
                     </a>

@@ -13,6 +13,7 @@ class CreatePlanOvertimeTable extends Migration
             $table->unsignedBigInteger('detail_pengajuan_id');
             $table->time('waktu_mulai');
             $table->time('waktu_selesai');
+            $table->integer('total_waktu');
             $table->timestamps();
 
             $table->foreign('detail_pengajuan_id')->references('id')->on('detail_pengajuan')->onDelete('cascade');

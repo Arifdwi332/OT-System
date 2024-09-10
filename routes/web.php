@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OvertimeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,3 +44,7 @@ Route::get('/karyawan/detail/{npk}', [KaryawanController::class, 'detail']);
 Route::get('/karyawan/edit/{npk}', [KaryawanController::class, 'edit']);
 Route::put('/karyawan/update/{npk}', [KaryawanController::class, 'update']);
 Route::delete('/karyawan/delete/{npk}', [KaryawanController::class, 'destroy']);
+
+//Overtime Plan
+Route::get('/overtime',[OvertimeController::class,'index']); 
+Route::get('/overtime/planning',[OvertimeController::class,'planning']); 
