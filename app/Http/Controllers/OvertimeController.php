@@ -37,26 +37,19 @@ class OvertimeController extends Controller
     public function store(Request $request)
     {
         DB::beginTransaction();
-
-        // Cek role dari user yang login
+    
         $role = auth()->user()->role;
-
-        // Atur nilai current_status berdasarkan role
-        if ($role == 'admin') {
-            $currentStatus = 'pending';
-        } 
-        
+        $currentStatus = $role == 'admin' ? 'pending' : 'some_default_status'; // Adjust as needed
+    
         try {
-            // 1. Simpan data ke tabel 'pengajuan'
             $pengajuan = new PengajuanModel();
             $pengajuan->tanggal = $request->tanggal;
             $pengajuan->department_id = $request->department_id;
-            $pengajuan->current_status = $currentStatus; // default value
-            $pengajuan->current_approver = auth()->user()->npk; // assuming the logged-in user is the approver
-            $pengajuan->status = 'pending'; // default value
+            $pengajuan->current_status = $currentStatus;
+            $pengajuan->current_approver = auth()->user()->npk;
+            $pengajuan->status = 'pending';
             $pengajuan->save();
-
-            // 2. Simpan data ke tabel 'detail_pengajuan' untuk setiap karyawan (npk)
+    
             foreach ($request->npk as $key => $npk) {
                 $detailPengajuan = new DetailPengajuanModel();
                 $detailPengajuan->pengajuan_id = $pengajuan->id;
@@ -65,30 +58,25 @@ class OvertimeController extends Controller
                 $detailPengajuan->pekerjaan_yang_dilakukan = $request->pekerjaan_yang_dilakukan[$key];
                 $detailPengajuan->keterangan = $request->keterangan[$key];
                 $detailPengajuan->tul = $request->tul[$key];
-                $detailPengajuan->status = 'pending'; // default value
+                $detailPengajuan->status = 'pending';
                 $detailPengajuan->save();
-
-                // 3. Simpan data ke tabel 'plan_overtime' (menggunakan detail_pengajuan_id)
+    
+                // Save plan overtime for each detail pengajuan
                 $planOvertime = new PlanOvertimeModel();
                 $planOvertime->detail_pengajuan_id = $detailPengajuan->id;
-                $planOvertime->waktu_mulai = $request->waktu_mulai;
-                $planOvertime->waktu_selesai = $request->waktu_selesai;
-                $planOvertime->total_waktu = $request->total_waktu;
+                $planOvertime->waktu_mulai = $request->waktu_mulai[$key];
+                $planOvertime->waktu_selesai = $request->waktu_selesai[$key];
+                $planOvertime->total_waktu = $request->total_waktu[$key];
                 $planOvertime->save();
             }
-
-            // Commit transaksi jika semua proses berhasil
+    
             DB::commit();
-
-            // Redirect dengan pesan sukses
             return redirect()->back()->with('success', 'Planning Overtime berhasil disimpan.');
-
+    
         } catch (\Exception $e) {
-            // Rollback transaksi jika ada kesalahan
             DB::rollback();
-
-            // Redirect dengan pesan error
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
     }
+    
 }

@@ -50,6 +50,8 @@
                         </select>
                     </td>
                     <input type="text" name="current_status" value="" hidden>
+                    <input type="text" name="current_approver" value="" hidden>
+                    <input type="text" name="status" value="" hidden>
                 </tr>
             </table>
             <table class="table table-bordered mt-4" id="table">
@@ -111,7 +113,7 @@
                                                 totalWaktu += 24;
                                             }
                         
-                                            row.querySelector('.total_waktu').value = totalWaktu.toFixed(2); // 2 desimal
+                                            row.querySelector('.total_waktu').value = totalWaktu.toFixed(2);
                                         }
                                     });
                                 });
@@ -123,7 +125,10 @@
                         <td width="16%">
                             <textarea name="keterangan[]" placeholder="pekerjaan yang dilakukan" class="form-control" cols="10" rows="0"></textarea>
                         </td>
-                        <td><input type="text" name="tul[]" placeholder="tul" class="form-control"></td>
+                        <td>
+                            <input type="text" name="tul[]" placeholder="tul" class="form-control">
+                            <input type="text" name="status" hidden>
+                        </td>
                         <td>
                             <button class="btn btn-primary" type="button" id="add" name="add">Tambah</button>
                         </td>
