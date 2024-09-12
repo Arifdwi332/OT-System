@@ -8,8 +8,7 @@ use App\Models\PengajuanModel;
 use App\Models\PlanOvertimeModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
-
+use Illuminate\Support\Facades\Http;
 
 class OvertimeController extends Controller
 {
@@ -20,19 +19,39 @@ class OvertimeController extends Controller
     public function planning() {
         $department = DepartmentModel::all(); // Ambil semua departemen
         $roles = ['superadmin', 'karyawan', 'admin', 'section_head', 'department_head', 'division_head', 'hrd'];
-        return view('overtime.planning', compact('department', 'roles'));
+        $jadwalKerja = ['shift 1', 'shift 2', 'shift 3'];
+        $apiData = $this->getAPI();
+        return view('overtime.planning', compact('department', 'roles', 'apiData', 'jadwalKerja'));
     }
-
+    public function getAPI()
+    {
+        // Logika untuk mengambil data API
+        $response = Http::get('https://tesapi.trafficupindonesia.com/api/karyawanGetAll');
+        
+        if ($response->successful()) {
+            return $response->json(); // Return data dari API
+        }
+    
+        return []; // Return array kosong jika ada masalah
+    }
     public function store(Request $request)
     {
         DB::beginTransaction();
 
+        // Cek role dari user yang login
+        $role = auth()->user()->role;
+
+        // Atur nilai current_status berdasarkan role
+        if ($role == 'admin') {
+            $currentStatus = 'pending';
+        } 
+        
         try {
             // 1. Simpan data ke tabel 'pengajuan'
             $pengajuan = new PengajuanModel();
             $pengajuan->tanggal = $request->tanggal;
             $pengajuan->department_id = $request->department_id;
-            $pengajuan->current_status = 'pending'; // default value
+            $pengajuan->current_status = $currentStatus; // default value
             $pengajuan->current_approver = auth()->user()->npk; // assuming the logged-in user is the approver
             $pengajuan->status = 'pending'; // default value
             $pengajuan->save();

@@ -12,7 +12,7 @@ class CreateDetailPengajuanTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pengajuan_id');
             $table->unsignedBigInteger('npk');
-            $table->enum('jadwal_kerja', ['shift 1', 'shift 2']);
+            $table->enum('jadwal_kerja', ['shift 1', 'shift 2', 'shift 3']);
             $table->string('pekerjaan_yang_dilakukan');
             $table->string('keterangan')->nullable();
             $table->integer('tul')->nullable();

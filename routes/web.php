@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\api\APIController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\KaryawanController;
 use App\Http\Controllers\MenuController;
@@ -47,8 +48,6 @@ Route::delete('/karyawan/delete/{npk}', [KaryawanController::class, 'destroy']);
 
 //Overtime Plan
 Route::get('/overtime',[OvertimeController::class,'index']); 
-Route::get('/overtime/planning',[OvertimeController::class,'planning']); 
+Route::get('/overtime/planning',[OvertimeController::class,'planning'])->name('overtime.planning');
 Route::post('/overtime/store', [OvertimeController::class, 'store'])->name('overtime.store');   // Route untuk menyimpan data dari form
-
-
-
+//api
