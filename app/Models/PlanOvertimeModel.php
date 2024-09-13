@@ -18,12 +18,6 @@ class PlanOvertimeModel extends Model
         'total_waktu',
     ];
 
-    protected $casts = [
-        'waktu_mulai' => 'time',
-        'waktu_selesai' => 'time',
-        'total_waktu' => 'integer',
-    ];
-
     // Relasi dengan detail_pengajuan
     public function detailPengajuan()
     {

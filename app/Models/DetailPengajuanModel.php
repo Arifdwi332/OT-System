@@ -18,7 +18,7 @@ class DetailPengajuanModel extends Model
         'pekerjaan_yang_dilakukan',
         'keterangan',
         'tul',
-        'status',
+        'dpstatus',
     ];
 
     // Relasi dengan pengajuan

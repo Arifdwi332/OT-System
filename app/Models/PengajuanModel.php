@@ -16,7 +16,7 @@ class PengajuanModel extends Model
         'department_id',
         'current_status',
         'current_approver',
-        'status',
+        'pengajuan_status',
     ];
 
     // Relasi dengan department

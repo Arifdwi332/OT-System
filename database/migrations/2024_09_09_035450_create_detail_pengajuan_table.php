@@ -16,7 +16,7 @@ class CreateDetailPengajuanTable extends Migration
             $table->string('pekerjaan_yang_dilakukan');
             $table->string('keterangan')->nullable();
             $table->integer('tul')->nullable();
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('dpstatus', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
 
             $table->foreign('pengajuan_id')->references('id')->on('pengajuan')->onDelete('cascade');

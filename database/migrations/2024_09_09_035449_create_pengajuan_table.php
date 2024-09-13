@@ -24,7 +24,7 @@ class CreatePengajuanTable extends Migration
                 'rejected by hrd'
             ])->default('pending');
             $table->unsignedBigInteger('current_approver');
-            $table->enum('status', ['pending', 'partially approved', 'approved', 'rejected'])->default('pending');
+            $table->enum('pengajuan_status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
 
             $table->foreign('department_id')->references('id')->on('department')->onDelete('cascade');
