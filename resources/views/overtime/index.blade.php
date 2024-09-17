@@ -65,6 +65,14 @@
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <button class="btn btn-warning"><i class="fas fa-eye"></i> Lihat</button>
+                            <!-- Form untuk delete -->
+                            <form action="{{ route('overtime.destroy', $pengajuan->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengajuan ini?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger">
+                                    <i class="fas fa-trash"></i> Hapus
+                                </button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

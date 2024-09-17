@@ -67,8 +67,8 @@ class OvertimeController extends Controller
             }
 
             DB::commit();
-            return redirect()->back()->with('success', 'Pengajuan lembur berhasil disimpan.');
-        } catch (\Exception $e) {
+            return redirect()->route('overtime.index')->with('success', 'Pengajuan lembur berhasil disimpan.');
+        } catch (\Exception $e) {   
             DB::rollback();
             Log::error('Error menyimpan data: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
@@ -120,6 +120,31 @@ public function update(Request $request, $id)
     } catch (\Exception $e) {
         DB::rollback();
         Log::error('Error mengupdate data: ' . $e->getMessage());
+        return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
+    }
+}
+
+public function destroy($id)
+{
+    DB::beginTransaction();
+    try {
+        // Hapus data detail pengajuan dan plan overtime terkait
+        $pengajuan = PengajuanModel::findOrFail($id);
+        foreach ($pengajuan->detailPengajuan as $detail) {
+            // Hapus plan overtime terkait dengan detail pengajuan
+            PlanOvertimeModel::where('detail_pengajuan_id', $detail->id)->delete();
+            // Hapus detail pengajuan
+            $detail->delete();
+        }
+
+        // Hapus pengajuan lembur
+        $pengajuan->delete();
+
+        DB::commit();
+        return redirect()->route('overtime.index')->with('success', 'Pengajuan lembur berhasil dihapus.');
+    } catch (\Exception $e) {
+        DB::rollback();
+        Log::error('Error menghapus pengajuan: ' . $e->getMessage());
         return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
     }
 }

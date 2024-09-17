@@ -46,10 +46,14 @@ Route::get('/karyawan/edit/{npk}', [KaryawanController::class, 'edit']);
 Route::put('/karyawan/update/{npk}', [KaryawanController::class, 'update']);
 Route::delete('/karyawan/delete/{npk}', [KaryawanController::class, 'destroy']);
 
+//Admin
 //Overtime Plan
-Route::get('/overtime',[OvertimeController::class,'index']); 
+Route::get('/overtime',[OvertimeController::class,'index'])->name('overtime.index');; 
 Route::get('/overtime/planning',[OvertimeController::class,'planning'])->name('overtime.planning');
 Route::post('/overtime/store', [OvertimeController::class, 'store'])->name('overtime.store');   // Route untuk menyimpan data dari form
 //update plan 
 Route::get('/overtime/edit/{id}', [OvertimeController::class, 'edit'])->name('overtime.edit');
 Route::put('/overtime/update/{id}', [OvertimeController::class, 'update'])->name('overtime.update');
+//destroy
+Route::delete('/overtime/{id}', [OvertimeController::class, 'destroy'])->name('overtime.destroy');
+

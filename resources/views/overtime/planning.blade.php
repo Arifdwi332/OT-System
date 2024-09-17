@@ -33,14 +33,14 @@
                     <td>
                         <label>Hari</label>
                         <input class="form-control" type="text" id="hari" placeholder="hari" readonly>
-                    </td>
                     <td>
                         <label>Departemen</label>
-                        <select class="form-control select2bs4" name="department_id">
-                            @foreach($department as $department)
-                                <option value="{{ $department->id }}">{{ $department->nama }}</option>
-                            @endforeach
-                        </select>
+                            <select class="form-control select2bs4" name="department_id">
+                                @foreach($department as $department)
+                                    <option value="{{ $department->id }}">{{ $department->nama }}</option>
+                                @endforeach
+                            </select>
+                        </td>
                     </td>
                     {{-- otomatis pending --}}
                     <input type="text" name="current_status" value="pending" hidden>
@@ -106,12 +106,12 @@
                     </tr>
                 </tbody>
             </table>
-            <div class="card-footer">
-                <button type="submit" class="btn btn-success float-right">Ajukan</button>
-                <a href="/overtime" class="btn btn-outline-primary">Kembali</a>
-            </div>
-        </form>
-    </div>
+        </div>
+        <div class="card-footer">
+            <button type="submit" class="btn btn-success float-right">Ajukan</button>
+            <a href="/overtime" class="btn btn-outline-primary">Kembali</a>
+        </div>
+    </form>
 </div>
 
 <script>
