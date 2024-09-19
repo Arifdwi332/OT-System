@@ -53,8 +53,8 @@ class KaryawanModel extends Authenticatable
     }
 
     // Relasi dengan pengajuan (untuk current approver)
-    public function pengajuanAsApprover()
+    public function detailPengajuanAsApprover()
     {
-        return $this->hasMany(PengajuanModel::class, 'current_approver', 'npk');
+        return $this->hasMany(DetailPengajuanModel::class, 'current_approver', 'npk');
     }
 }

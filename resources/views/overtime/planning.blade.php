@@ -36,18 +36,12 @@
                     <td>
                         <label>Departemen</label>
                             <select class="form-control select2bs4" name="department_id">
-                                @foreach($department as $department)
-                                    <option value="{{ $department->id }}">{{ $department->nama }}</option>
+                                @foreach($department as $dept)
+                                    <option value="{{ $dept->id }}">{{ $dept->nama }}</option>
                                 @endforeach
                             </select>
                         </td>
                     </td>
-                    {{-- otomatis pending --}}
-                    <input type="text" name="current_status" value="pending" hidden>
-                    {{-- ambil dari npk yang login  --}}
-                    <input type="number" name="current_approver" value="{{ Auth::user()->npk }}" hidden>
-                    {{-- pada dashboard admin hanya ada pending --}}
-                    <input type="text" name="pengajuan_status" value="pending" hidden>
                 </tr>
             </table>
             <table class="table table-bordered mt-4" id="table">
@@ -67,44 +61,48 @@
                 <tbody>
                     <tr>
                         <td>
-                            {{-- <input type="number" name="npk[]" class="form-control"> --}}
-                            <Select class="form-control select2bs4" name="npk[]">
+                            <select class="form-control select2bs4" name="npk[]">
                                 @foreach($karyawanNPK as $data)
                                     <option value="{{ $data->npk }}">{{ $data->npk . ' - ' . $data->nama }}</option>
                                 @endforeach
-                            </Select> 
+                            </select>
                         </td>
                         <td>
-                            <select name="jadwal_kerja[]" class="form-control select2bs4" >
+                            <select name="jadwal_kerja[]" class="form-control select2bs4">
                                 @foreach($jadwalKerja as $jd)
                                     <option value="{{ $jd }}">{{ ucfirst($jd) }}</option>
-                            @endforeach
+                                @endforeach
+                            </select>
                         </td>
                         <td>
-                            <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control" cols="10" rows="0"></textarea>
+                            <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></textarea>
                         </td>
                         <td>
-                            <input type="time" name="waktu_mulai[]" placeholder="mulai" class="form-control waktu_mulai">
+                            <input type="time" name="waktu_mulai[]" class="form-control waktu_mulai">
                         </td>
                         <td>
-                            <input type="time" name="waktu_selesai[]" placeholder="selesai" class="form-control waktu_selesai">
+                            <input type="time" name="waktu_selesai[]" class="form-control waktu_selesai">
                         </td>
                         <td>
-                            <input type="number" name="total_waktu[]" placeholder="total waktu" class="form-control total_waktu" readonly>
+                            <input type="number" name="planning_waktu[]" class="form-control total_waktu" readonly>
                         </td>
-                        <td width="16%">
-                            <textarea name="keterangan[]" placeholder="pekerjaan yang dilakukan" class="form-control" cols="10" rows="0"></textarea>
+                        <td>
+                            <textarea name="keterangan[]" placeholder="keterangan" class="form-control"></textarea>
                         </td>
                         <td>
                             <input type="text" name="tul[]" placeholder="tul" class="form-control">
-                            {{-- pada dashboard admin hanya ada pending --}}
-                            <input type="text" name="dpstatus" value="pending" hidden>
+                            <input type="text" name="dpstatus[]" value="pending" hidden>
                         </td>
                         <td>
-                            <button class="btn btn-primary" type="button" id="add" name="add">Tambah</button>
+                            <button class="btn btn-primary" id="add" type="button">Tambah</button>
                         </td>
+                        <input type="text" name="planning_status[]" value="pending" hidden>
+                        <input type="text" name="actual_status[]" value="pending" hidden>
+                        <input type="text" name="reject_reason[]" value="test" hidden>
+                        <input type="number" name="current_approver[]" value="{{ Auth::user()->npk }}" hidden>
+                        <input type="text" name="dp_status[]" value="pending" hidden>
                     </tr>
-                </tbody>
+                </tbody>                
             </table>
         </div>
         <div class="card-footer">
@@ -128,66 +126,70 @@
         ++i;
         $('#table tbody').append(`
             <tr>
-                <td width="12%">
-                    <Select class="form-control select2bs4" name="npk[]">
+                <td>
+                    <select class="form-control select2bs4" name="npk[]">
                         @foreach($karyawanNPK as $data)
                             <option value="{{ $data->npk }}">{{ $data->npk . ' - ' . $data->nama }}</option>
                         @endforeach
-                    </Select>
+                    </select>
                 </td>
-                <td width="8%">
+                <td>
                     <select name="jadwal_kerja[]" class="form-control select2bs4">
                         @foreach($jadwalKerja as $jd)
                             <option value="{{ $jd }}">{{ ucfirst($jd) }}</option>
                         @endforeach
                     </select>
                 </td>
-                <td width="16%">
-                    <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control" cols="10" rows="0"></textarea>
+                <td>
+                    <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></textarea>
                 </td>
                 <td>
-                    <input type="time" name="waktu_mulai[]" placeholder="mulai" class="form-control waktu_mulai">
+                    <input type="time" name="waktu_mulai[]" class="form-control waktu_mulai">
                 </td>
                 <td>
-                    <input type="time" name="waktu_selesai[]" placeholder="selesai" class="form-control waktu_selesai">
+                    <input type="time" name="waktu_selesai[]" class="form-control waktu_selesai">
                 </td>
                 <td>
-                    <input type="number" name="total_waktu[]" placeholder="total waktu" class="form-control total_waktu" readonly>
+                    <input type="number" name="planning_waktu[]" class="form-control total_waktu" readonly>
                 </td>
-                <td width="16%">
-                    <textarea name="keterangan[]" placeholder="pekerjaan yang dilakukan" class="form-control" cols="10" rows="0"></textarea>
+                <td>
+                    <textarea name="keterangan[]" placeholder="keterangan" class="form-control"></textarea>
                 </td>
                 <td>
                     <input type="text" name="tul[]" placeholder="tul" class="form-control">
-                    <input type="text" name="dpstatus" value="pending" hidden>
+                    <input type="text" name="dpstatus[]" value="pending" hidden>
                 </td>
                 <td>
-                    <button class="btn btn-primary remove-table-row" type="button">Hapus</button>
+                    <button class="btn btn-danger remove-table-row" type="button" name="add">Hapus</button>
                 </td>
+                <input type="text" name="planning_status[]" value="pending" hidden>
+                <input type="text" name="actual_status[]" value="pending" hidden>
+                <input type="text" name="reject_reason[]" value="test" hidden>
+                <input type="number" name="current_approver[]" value="{{ Auth::user()->npk }}" hidden>
+                <input type="text" name="dp_status[]" value="pending" hidden>
             </tr>
         `);
     });
 
     // Event delegation untuk menghitung total waktu
     $(document).on('change', '.waktu_mulai, .waktu_selesai', function () {
-        const row = $(this).closest('tr');
-        const waktuMulai = row.find('.waktu_mulai').val();
-        const waktuSelesai = row.find('.waktu_selesai').val();
+    const row = $(this).closest('tr');
+    const waktuMulai = row.find('.waktu_mulai').val();
+    const waktuSelesai = row.find('.waktu_selesai').val();
 
-        if (waktuMulai && waktuSelesai) {
-            const mulai = new Date(`1970-01-01T${waktuMulai}:00`);
-            const selesai = new Date(`1970-01-01T${waktuSelesai}:00`);
+    if (waktuMulai && waktuSelesai) {
+        const mulai = new Date(`1970-01-01T${waktuMulai}:00`);
+        const selesai = new Date(`1970-01-01T${waktuSelesai}:00`);
 
-            let totalWaktu = (selesai - mulai) / 1000 / 60 / 60; // Hasil dalam jam
+        let totalWaktu = (selesai - mulai) / (1000 * 60 * 60); // Hasil dalam jam
 
-            // Jika waktu selesai lebih kecil dari waktu mulai (misalnya lembur melewati tengah malam)
-            if (totalWaktu < 0) {
-                totalWaktu += 24;
-            }
-
-            // Membulatkan ke bilangan bulat
-            row.find('.total_waktu').val(Math.round(totalWaktu));
+        // Jika waktu selesai lebih kecil dari waktu mulai (misalnya lembur melewati tengah malam)
+        if (totalWaktu < 0) {
+            totalWaktu += 24;
         }
+
+        row.find('.total_waktu').val(Math.round(totalWaktu));
+    }
     });
 
     // Hapus row

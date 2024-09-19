@@ -5,81 +5,52 @@
 @endsection
 
 @section('content')
-<div class="card">
+<div class="card card-secondary">
     <div class="card-header">
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
-
-        @if(session('success'))
+        <h3 class="card-title">Data Overtime</h3>
+        <a href="{{ route('overtime.planning') }}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Buat Planning</a>
+        @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
         @endif
-        <h3 class="card-title">Data Pengajuan Lembur</h3>
-        <a href="/overtime/planning" class="btn btn-success float-right"><i class="fas fa-plus"></i> Add OT Planning</a>
-    </div>
 
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+    </div>
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>ID Pengajuan</th>
-                    <th>Tanggal</th>
+                    <th>Departemen</th>
                     <th>Hari</th>
-                    <th>Department</th>
-                    <th>Jumlah Member OT</th>
-                    <th>Status Pengajuan</th>
+                    <th>Tanggal</th>
+                    <th>Jumlah Member</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($pengajuanData as $index => $pengajuan)
+                @foreach($pengajuanData as $data)
                     <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $pengajuan->id }}</td>
-                        <td>{{ $pengajuan->tanggal }}</td>
-                        <td>{{ \Carbon\Carbon::parse($pengajuan->tanggal)->locale('id')->translatedFormat('l') }}</td>
-                        <td>{{ $pengajuan->department->nama }}</td>
-                        <td>{{ $pengajuan->detailPengajuan->count() }} Member</td>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $data['department'] }}</td>
+                        <td>{{ $data['hari'] }}</td>
+                        <td>{{ $data['tanggal'] }}</td>
+                        <td>{{ $data['jumlah_member'] }}</td>
                         <td>
-                            @if($pengajuan->pengajuan_status == 'Approved')
-                                <span class="badge badge-success">Approved</span>
-                            @elseif($pengajuan->pengajuan_status == 'Pending')
-                                <span class="badge badge-warning">Pending</span>
-                            @elseif($pengajuan->pengajuan_status == 'Rejected')
-                                <span class="badge badge-danger">Rejected</span>
-                            @else
-                                <span class="badge badge-secondary">{{ $pengajuan->pengajuan_status }}</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ route('overtime.edit', $pengajuan->id) }}" class="btn btn-primary">
-                                <i class="fas fa-edit"></i> Edit
-                            </a>
-                            <button class="btn btn-warning"><i class="fas fa-eye"></i> Lihat</button>
-                            <!-- Form untuk delete -->
-                            <form action="{{ route('overtime.destroy', $pengajuan->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Apakah Anda yakin ingin menghapus pengajuan ini?');">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-danger">
-                                    <i class="fas fa-trash"></i> Hapus
-                                </button>
-                            </form>
+                            <a href="{{ route('overtime.show', $data['id']) }}" class="btn btn-info">Lihat Detail</a>
+                            <a href="{{ route('overtime.edit', $data['id']) }}" class="btn btn-primary">Edit</a>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
-    <div class="card-footer"></div>
+    <div class="card-footer">
+    </div>
 </div>
 @endsection

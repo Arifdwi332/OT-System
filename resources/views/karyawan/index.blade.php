@@ -124,7 +124,7 @@
                         </div>
                         <div class="form-group">
                             <label>Role</label>
-                            <select class="form-control select2" name="role" style="width: 100%;">
+                            <select class="form-control select2bs4" name="role" style="width: 100%;">
                                 @foreach($roles as $role)
                                     <option value="{{ $role }}">{{ $role }}</option>
                                 @endforeach
@@ -132,7 +132,7 @@
                         </div>
                         <div class="form-group">
                             <label>Departemen</label>
-                            <select class="form-control select2" name="department_id" style="width: 100%;">
+                            <select class="form-control select2bs4" name="department_id" style="width: 100%;">
                                 @foreach($department as $dept)
                                     <option value="{{ $dept->id }}">{{ $dept->nama }}</option>
                                 @endforeach

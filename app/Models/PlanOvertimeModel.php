@@ -15,7 +15,7 @@ class PlanOvertimeModel extends Model
         'detail_pengajuan_id',
         'waktu_mulai',
         'waktu_selesai',
-        'total_waktu',
+        'planning_waktu',
     ];
 
     // Relasi dengan detail_pengajuan

@@ -17,8 +17,12 @@ class DetailPengajuanModel extends Model
         'jadwal_kerja',
         'pekerjaan_yang_dilakukan',
         'keterangan',
+        'planning_status',
+        'actual_status',
+        'reject_reason',
+        'current_approver',
+        'dp_status',
         'tul',
-        'dpstatus',
     ];
 
     // Relasi dengan pengajuan
@@ -36,13 +40,19 @@ class DetailPengajuanModel extends Model
     // Relasi dengan plan_overtime
     public function planOvertime()
     {
-        return $this->hasOne(PlanOvertimeModel::class, 'detail_pengajuan_id');
+        return $this->belongsToMany(PlanOvertimeModel::class, 'detail_pengajuan_id');
     }
 
     // Relasi dengan actual_overtime
     public function actualOvertime()
     {
-        return $this->hasOne(ActualOvertimeModel::class, 'detail_pengajuan_id');
+        return $this->hasMany(ActualOvertimeModel::class, 'detail_pengajuan_id');
+    }
+    
+    // Relasi dengan karyawan (current approver)
+    public function currentApprover()
+    {
+        return $this->belongsTo(KaryawanModel::class, 'current_approver', 'npk');
     }
 }
 

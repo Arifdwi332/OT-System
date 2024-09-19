@@ -15,7 +15,7 @@ class ActualOvertimeModel extends Model
         'detail_pengajuan_id',
         'waktu_mulai',
         'waktu_selesai',
-        'total_waktu',
+        'actual_waktu',
     ];
 
     // Relasi dengan detail_pengajuan

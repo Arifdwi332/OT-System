@@ -13,8 +13,8 @@ class LogPengajuanModel extends Model
 
     protected $fillable = [
         'pengajuan_id',
-        'status',
-        'description',
+        'action',
+        'remarks'
     ];
 
     // Relasi dengan pengajuan
