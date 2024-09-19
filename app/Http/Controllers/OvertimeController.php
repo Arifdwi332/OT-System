@@ -53,16 +53,35 @@ class OvertimeController extends Controller
     }
     public function store(Request $request)
     {
+        // Validasi input
+        $request->validate([
+            'tanggal' => 'required|date',
+            'department_id' => 'required|exists:department,id',
+            'npk.*' => 'required|exists:karyawan,npk',
+            'jadwal_kerja.*' => 'required|string',
+            'pekerjaan_yang_dilakukan.*' => 'required|string',
+            'waktu_mulai.*' => 'required|date_format:H:i',
+            'waktu_selesai.*' => 'required|date_format:H:i',
+            'planning_waktu.*' => 'required|string',
+            'keterangan.*' => 'nullable|string',
+            'tul.*' => 'nullable|string',
+            'dpstatus.*' => 'required|string',
+            'planning_status.*' => 'nullable|string',
+            'actual_status.*' => 'nullable|string',
+            'reject_reason.*' => 'nullable|string',
+            'current_approver.*' => 'required|exists:karyawan,npk',
+        ]);
+    
         // Start the database transaction
         DB::beginTransaction();
-
+    
         try {
             // Save the Pengajuan
             $pengajuan = new PengajuanModel();
             $pengajuan->tanggal = $request->tanggal;
             $pengajuan->department_id = $request->department_id;
             $pengajuan->save();
-
+    
             $npkArray = $request->npk;
             $jadwalKerjaArray = $request->jadwal_kerja;
             $pekerjaanArray = $request->pekerjaan_yang_dilakukan;
@@ -76,7 +95,7 @@ class OvertimeController extends Controller
             $actualStatusArray = $request->actual_status;
             $rejectReasonArray = $request->reject_reason;
             $currentApproverArray = $request->current_approver;
-
+    
             // Ensure all arrays are the same length
             $count = count($npkArray);
             for ($key = 0; $key < $count; $key++) {
@@ -93,7 +112,7 @@ class OvertimeController extends Controller
                 $detailPengajuan->current_approver = $currentApproverArray[$key] ?? Auth::user()->npk;
                 $detailPengajuan->dp_status = $dpStatusArray[$key] ?? 'pending';
                 $detailPengajuan->save();
-
+    
                 $planOvertime = new PlanOvertimeModel();
                 $planOvertime->detail_pengajuan_id = $detailPengajuan->id;
                 $planOvertime->waktu_mulai = $waktuMulaiArray[$key] ?? null;
@@ -101,17 +120,17 @@ class OvertimeController extends Controller
                 $planOvertime->planning_waktu = $planningWaktuArray[$key] ?? null;
                 $planOvertime->save();
             }
-
+    
             // Commit the transaction
             DB::commit();
-            return redirect()->back()->with('success', 'Pengajuan lembur berhasil disimpan.');
+            return redirect()->route('overtime.index')->with('success', 'Pengajuan lembur berhasil disimpan.');
         } catch (\Exception $e) {
             // Rollback the transaction if something failed
             DB::rollback();
             Log::error('Error menyimpan data: ' . $e->getMessage());
             return redirect()->back()->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-    }
+    }    
     public function edit($id)
     {
         // Get Pengajuan and related DetailPengajuan and PlanOvertime data

@@ -9,105 +9,142 @@
     <div class="card-header">
         <h3 class="card-title">Lembur Kolektif</h3>
         @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
-@if (session('error'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
+        @if (session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+        {{-- errors validation --}}
+        @if ($errors->any())
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <button class="btn btn-success float-right">Import .xlsx</button>
     </div>
     <div class="card-body fluid">
         <form action="{{ route('overtime.store') }}" method="POST">
             @csrf
-            <table class="table table-bordered">
-                <tr>
-                    <td >
-                        <label>Tanggal</label>
-                        <input type="date" name="tanggal" id="tanggal" class="form-control"/>
-                    </td>
-                    <td>
-                        <label>Hari</label>
-                        <input class="form-control" type="text" id="hari" placeholder="hari" readonly>
-                    <td>
-                        <label>Departemen</label>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <tr>
+                        <td style="width: 30%">
+                            <label>Tanggal</label>
+                            <input type="date" name="tanggal" id="tanggal" class="form-control"/>
+                            @error('tanggal')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </td>
+                        <td style="width: 40%">
+                            <label>Hari</label>
+                            <input class="form-control" type="text" id="hari" placeholder="hari" readonly>
+                        </td>
+                        <td style="width: 30%">
+                            <label>Departemen</label>
                             <select class="form-control select2bs4" name="department_id">
+                                <option selected="selected">Select Department</option>
                                 @foreach($department as $dept)
                                     <option value="{{ $dept->id }}">{{ $dept->nama }}</option>
                                 @endforeach
                             </select>
+                            @error('department_id')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
                         </td>
-                    </td>
-                </tr>
-            </table>
-            <table class="table table-bordered mt-4" id="table">
-                <thead>
-                    <tr>
-                        <th>NPK</th>
-                        <th>Jadwal Shift Kerja</th>
-                        <th>Pekerjaan yang Dilakukan</th>
-                        <th>Rencana Jam Mulai Lembur</th>
-                        <th>Rencana Jam Selesai Lembur</th>
-                        <th>Total Rencana Waktu</th>
-                        <th>Keterangan/Alasan</th>
-                        <th>Tul</th>
-                        <th>Aksi</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <select class="form-control select2bs4" name="npk[]">
-                                @foreach($karyawanNPK as $data)
-                                    <option value="{{ $data->npk }}">{{ $data->npk . ' - ' . $data->nama }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <select name="jadwal_kerja[]" class="form-control select2bs4">
-                                @foreach($jadwalKerja as $jd)
-                                    <option value="{{ $jd }}">{{ ucfirst($jd) }}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                        <td>
-                            <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></textarea>
-                        </td>
-                        <td>
-                            <input type="time" name="waktu_mulai[]" class="form-control waktu_mulai">
-                        </td>
-                        <td>
-                            <input type="time" name="waktu_selesai[]" class="form-control waktu_selesai">
-                        </td>
-                        <td>
-                            <input type="number" name="planning_waktu[]" class="form-control total_waktu" readonly>
-                        </td>
-                        <td>
-                            <textarea name="keterangan[]" placeholder="keterangan" class="form-control"></textarea>
-                        </td>
-                        <td>
-                            <input type="text" name="tul[]" placeholder="tul" class="form-control">
-                            <input type="text" name="dpstatus[]" value="pending" hidden>
-                        </td>
-                        <td>
-                            <button class="btn btn-primary" id="add" type="button">Tambah</button>
-                        </td>
-                        <input type="text" name="planning_status[]" value="pending" hidden>
-                        <input type="text" name="actual_status[]" value="pending" hidden>
-                        <input type="text" name="reject_reason[]" value="test" hidden>
-                        <input type="number" name="current_approver[]" value="{{ Auth::user()->npk }}" hidden>
-                        <input type="text" name="dp_status[]" value="pending" hidden>
-                    </tr>
-                </tbody>                
-            </table>
+                </table>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered mt-4" id="table">
+                    <thead>
+                        <tr>
+                            <th>NPK</th>
+                            <th>Jadwal Shift Kerja</th>
+                            <th>Pekerjaan yang Dilakukan</th>
+                            <th>Rencana Jam Mulai Lembur</th>
+                            <th>Rencana Jam Selesai Lembur</th>
+                            <th>Total Rencana Waktu</th>
+                            <th>Keterangan/Alasan</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <select class="form-control select2bs4" name="npk[]">
+                                    <option selected="selected">Select NPK</option>
+                                    @foreach($karyawanNPK as $data)
+                                        <option value="{{ $data->npk }}">{{ $data->npk . ' - ' . $data->nama }}</option>
+                                    @endforeach
+                                </select>
+                                @error('npk.*')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </td>
+                            <td>
+                                <select name="jadwal_kerja[]" class="form-control select2bs4">
+                                    <option selected="selected">Select Shift</option>
+                                    @foreach($jadwalKerja as $jd)
+                                        <option value="{{ $jd }}">{{ ucfirst($jd) }}</option>
+                                    @endforeach
+                                </select>
+                                @error('jadwal_kerja.*')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </td>
+                            <td>
+                                <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></textarea>
+                                @error('pekerjaan_yang_dilakukan.*')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </td>
+                            <td>
+                                <input type="time" name="waktu_mulai[]" class="form-control waktu_mulai">
+                                @error('waktu_mulai.*')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </td>
+                            <td>
+                                <input type="time" name="waktu_selesai[]" class="form-control waktu_selesai">
+                                @error('waktu_selesai.*')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                            </td>
+                            <td>
+                                <input type="number" name="planning_waktu[]" class="form-control total_waktu" readonly>
+                            </td>
+                            <td>
+                                <textarea name="keterangan[]" placeholder="keterangan" class="form-control"></textarea>
+                                @error('keterangan.*')
+                                    <div class="text-danger">{{ $message }}</div>
+                                @enderror
+                                <input type="text" name="dpstatus[]" value="pending" hidden>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" id="add" type="button">Tambah</button>
+                            </td>
+                            <input type="text" name="planning_status[]" value="pending" hidden>
+                            <input type="text" name="actual_status[]" value="pending" hidden>
+                            <input type="text" name="reject_reason[]" value="test" hidden>
+                            <input type="number" name="current_approver[]" value="{{ Auth::user()->npk }}" hidden>
+                            <input type="text" name="dp_status[]" value="pending" hidden>
+                        </tr>
+                    </tbody>                
+                </table>
+            </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-success float-right">Ajukan</button>
-            <a href="/overtime" class="btn btn-outline-primary">Kembali</a>
+            <a href="/overtime" class="btn btn-secondary">Kembali</a>
         </div>
     </form>
 </div>
@@ -128,35 +165,52 @@
             <tr>
                 <td>
                     <select class="form-control select2bs4" name="npk[]">
+                        <option selected="selected">Select NPK</option>
                         @foreach($karyawanNPK as $data)
                             <option value="{{ $data->npk }}">{{ $data->npk . ' - ' . $data->nama }}</option>
                         @endforeach
                     </select>
+                    @error('npk.*')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
                 <td>
                     <select name="jadwal_kerja[]" class="form-control select2bs4">
+                        <option selected="selected">Select Shift</option>
                         @foreach($jadwalKerja as $jd)
                             <option value="{{ $jd }}">{{ ucfirst($jd) }}</option>
                         @endforeach
                     </select>
+                    @error('jadwal_kerja.*')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
                 <td>
                     <textarea name="pekerjaan_yang_dilakukan[]" placeholder="pekerjaan yang dilakukan" class="form-control"></textarea>
+                    @error('pekerjaan_yang_dilakukan.*')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
                 <td>
                     <input type="time" name="waktu_mulai[]" class="form-control waktu_mulai">
+                    @error('waktu_mulai.*')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
                 <td>
                     <input type="time" name="waktu_selesai[]" class="form-control waktu_selesai">
+                    @error('waktu_selesai.*')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </td>
                 <td>
                     <input type="number" name="planning_waktu[]" class="form-control total_waktu" readonly>
                 </td>
                 <td>
                     <textarea name="keterangan[]" placeholder="keterangan" class="form-control"></textarea>
-                </td>
-                <td>
-                    <input type="text" name="tul[]" placeholder="tul" class="form-control">
+                    @error('keterangan.*')
+                        <div class="text-danger">{{ $message }}</div>
+                    @enderror
                     <input type="text" name="dpstatus[]" value="pending" hidden>
                 </td>
                 <td>
@@ -198,4 +252,4 @@
     });
 });
 </script>
-@endsection 
+@endsection

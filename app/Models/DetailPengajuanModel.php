@@ -40,13 +40,13 @@ class DetailPengajuanModel extends Model
     // Relasi dengan plan_overtime
     public function planOvertime()
     {
-        return $this->belongsToMany(PlanOvertimeModel::class, 'detail_pengajuan_id');
+        return $this->hasOne(PlanOvertimeModel::class, 'detail_pengajuan_id');
     }
 
     // Relasi dengan actual_overtime
     public function actualOvertime()
     {
-        return $this->hasMany(ActualOvertimeModel::class, 'detail_pengajuan_id');
+        return $this->hasOne(ActualOvertimeModel::class, 'detail_pengajuan_id');
     }
     
     // Relasi dengan karyawan (current approver)

@@ -15,7 +15,7 @@ class KaryawanSeeder extends Seeder
     {
         $karyawanData = [
             [
-                'npk' => '0001',
+                'npk' => '4278',
                 'nama' => 'arif superadmin',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',
@@ -25,7 +25,7 @@ class KaryawanSeeder extends Seeder
                 'updated_at' => now()
              ],
              [
-                'npk' => '0002',
+                'npk' => '1592',
                 'nama' => 'arif admin',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',
@@ -35,7 +35,7 @@ class KaryawanSeeder extends Seeder
                 'updated_at' => now()
              ],
              [
-                'npk' => '0003',
+                'npk' => '7219',
                 'nama' => 'arif karyawan',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',
@@ -45,7 +45,7 @@ class KaryawanSeeder extends Seeder
                 'updated_at' => now()
              ],
              [
-                'npk' => '0004',
+                'npk' => '1635',
                 'nama' => 'arif sechead',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',
@@ -55,7 +55,7 @@ class KaryawanSeeder extends Seeder
                 'updated_at' => now()
              ],
              [
-                'npk' => '0005',
+                'npk' => '9011',
                 'nama' => 'arif dephead',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',
@@ -65,7 +65,7 @@ class KaryawanSeeder extends Seeder
                 'updated_at' => now()
              ],
              [
-                'npk' => '0006',
+                'npk' => '1815',
                 'nama' => 'arif divhead',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',
@@ -75,7 +75,7 @@ class KaryawanSeeder extends Seeder
                 'updated_at' => now()
              ],
              [
-                'npk' => '0007',
+                'npk' => '7650',
                 'nama' => 'arif hrd',
                 'password' => bcrypt('1234'),
                 'department_id' => '1',

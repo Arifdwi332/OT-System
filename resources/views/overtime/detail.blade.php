@@ -48,44 +48,45 @@
                     <th>Waktu Selesai</th>
                     <th>Total Waktu</th>
                     <th>Status Pengajuan</th>
-                    <th>TUL</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($pengajuan->detailPengajuan as $detail)
-                    @foreach($detail->planOvertime as $plan)
+                    @if($detail->planOvertime)
+                    <tr>
+                        <td>{{ $detail->npk }}</td>
+                        <td>{{ $detail->jadwal_kerja }}</td>
+                        <td>{{ $detail->pekerjaan_yang_dilakukan }}</td>
+                        <td>{{ $detail->planOvertime->waktu_mulai }}</td>
+                        <td>{{ $detail->planOvertime->waktu_selesai }}</td>
+                        <td>{{ $detail->planOvertime->planning_waktu }} jam</td>
+                        <td>
+                            @if($detail->planning_status == 'pending')
+                                <span class="badge badge-secondary">Pending</span>
+                            @elseif($detail->planning_status == 'approved by section head')
+                                <span class="badge badge-primary">Approved by Section Head</span>
+                            @elseif($detail->planning_status == 'approved by department head')
+                                <span class="badge badge-success">Approved by Department Head</span>
+                            @elseif($detail->planning_status == 'approved by division head')
+                                <span class="badge badge-warning">Approved by Division Head</span>
+                            @elseif($detail->planning_status == 'approved by hrd')
+                                <span class="badge badge-info">Approved by HRD</span>
+                            @elseif($detail->planning_status == 'rejected by section head')
+                                <span class="badge badge-danger">Rejected by Section Head</span>
+                            @elseif($detail->planning_status == 'rejected by department head')
+                                <span class="badge badge-danger">Rejected by Department Head</span>
+                            @elseif($detail->planning_status == 'rejected by division head')
+                                <span class="badge badge-danger">Rejected by Division Head</span>
+                            @elseif($detail->planning_status == 'rejected by hrd')
+                                <span class="badge badge-danger">Rejected by HRD</span>
+                            @endif
+                        </td>
+                    </tr>
+                    @else
                         <tr>
-                            <td>{{ $detail->npk }}</td>
-                            <td>{{ $detail->jadwal_kerja }}</td>
-                            <td>{{ $detail->pekerjaan_yang_dilakukan }}</td>
-                            <td>{{ $plan->waktu_mulai }}</td>
-                            <td>{{ $plan->waktu_selesai }}</td>
-                            <td>{{ $plan->planning_waktu }} jam</td>
-                            <td>
-                                @if($detail->planning_status == 'pending')
-                                    <span class="badge badge-secondary">Pending</span>
-                                @elseif($detail->planning_status == 'approved by section head')
-                                    <span class="badge badge-primary">Approved by Section Head</span>
-                                @elseif($detail->planning_status == 'approved by department head')
-                                    <span class="badge badge-success">Approved by Department Head</span>
-                                @elseif($detail->planning_status == 'approved by division head')
-                                    <span class="badge badge-warning">Approved by Division Head</span>
-                                @elseif($detail->planning_status == 'approved by hrd')
-                                    <span class="badge badge-info">Approved by HRD</span>
-                                @elseif($detail->planning_status == 'rejected by section head')
-                                    <span class="badge badge-danger">Rejected by Section Head</span>
-                                @elseif($detail->planning_status == 'rejected by department head')
-                                    <span class="badge badge-danger">Rejected by Department Head</span>
-                                @elseif($detail->planning_status == 'rejected by division head')
-                                    <span class="badge badge-danger">Rejected by Division Head</span>
-                                @elseif($detail->planning_status == 'rejected by hrd')
-                                    <span class="badge badge-danger">Rejected by HRD</span>
-                                @endif
-                            </td>
-                            
-                            <td>{{ $detail->tul }}</td>
+                            <td colspan="8">Plan Overtime tidak ditemukan</td>
                         </tr>
-                    @endforeach
+                    @endif
                 @endforeach
             </tbody>
         </table>

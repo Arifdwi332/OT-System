@@ -55,9 +55,9 @@ Route::post('/overtime/store', [OvertimeController::class, 'store'])->name('over
 Route::delete('/overtime/{id}', [OvertimeController::class, 'destroy'])->name('overtime.destroy');
 //detail
 Route::get('/overtime/{id}', [OvertimeController::class, 'show'])->name('overtime.show');
-// Route for displaying the form to edit a specific Pengajuan
+//update
 Route::get('/overtime/edit/{id}', [OvertimeController::class, 'edit'])->name('overtime.edit');
-// Route for handling the update request
-Route::post('/overtime/update/{id}', [OvertimeController::class, 'update'])->name('overtime.update');
+Route::put('/overtime/update/{id}', [OvertimeController::class, 'update'])->name('overtime.update');
+
 
 
