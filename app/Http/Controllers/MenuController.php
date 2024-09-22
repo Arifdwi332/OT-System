@@ -12,15 +12,12 @@ class MenuController extends Controller
     }
     function superadmin() {
         return view('dashboard');
-        echo "<h1>". Auth::user()->nama ."</h1>";
     }
     function admin() {
-        echo "masuk admin";
-        echo "<h1>". Auth::user()->nama ."</h1>";
+        return view('dashboard');
     }
     function sechead() {
-        echo "masuk sechead";
-        echo "<h1>". Auth::user()->nama ."</h1>";
+        return view('dashboard');
     }
     function dephead() {
         echo "masuk dephead";

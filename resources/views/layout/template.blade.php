@@ -16,6 +16,8 @@
   <!-- Select2 -->
   <link rel="stylesheet" href="{{ asset('lte/plugins/select2/css/select2.min.css')}}">
   <link rel="stylesheet" href="{{ asset('lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="{{ asset('lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css')}}">
   <!-- DataTables -->
   <link rel="stylesheet" href="{{ asset('lte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
   <link rel="stylesheet" href="{{ asset('lte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
@@ -130,9 +132,8 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          @if (Auth::user()->role == 'superadmin')
+        {{-- Superadmin Menu --}}
+        @if (Auth::user()->role == 'superadmin')
           <li class="nav-header">superadmin</li>
           <li class="nav-item">
             <a href="/" class="nav-link">
@@ -152,7 +153,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/overtime" class="nav-link">
+                <a href="{{ route('overtime.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>
                     Planning
@@ -169,7 +170,7 @@
               </li>
             </ul>
             <li class="nav-item">
-              <a href="/karyawan" class="nav-link">
+              <a href="{{ route('karyawan.index') }}" class="nav-link">
                 <i class="nav-icon fas fa-user"></i>
                 <p>
                   Karyawan
@@ -188,7 +189,7 @@
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="#" class="nav-link">
+                  <a href="{{ route('approval.planning') }}" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>
                       Planning
@@ -262,18 +263,47 @@
               </ul>
           </li>
           <li class="nav-header">HRD</li>
-          
-          @endif
-          @if (Auth::user()->role == 'section')
+        @endif
+        {{-- Section_Head Menu --}}
+        @if (Auth::user()->role == 'section_head')
+          <li class="nav-header">superadmin</li>
           <li class="nav-item">
-            <a href="pages/widgets.html" class="nav-link">
-              <i class="nav-icon fas fa-database"></i>
+            <a href="/" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Section
+                Dashboard
               </p>
             </a>
           </li>
-          @endif
+          <li class="nav-header">Section Head</li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-clock"></i>
+                <p>
+                  Approval Overtime
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ route('approval.planning') }}" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Planning
+                    </p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="#" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>
+                      Actual
+                    </p>
+                  </a>
+                </li>
+              </ul>
+          </li>
+        @endif
           @if (Auth::user()->role == 'department')
           <li class="nav-item">
             <a href="pages/widgets.html" class="nav-link">

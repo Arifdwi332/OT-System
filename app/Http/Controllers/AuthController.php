@@ -37,17 +37,18 @@ class AuthController extends Controller
         ];
 
         if(Auth::attempt($infologin)){
+            
             if (Auth::user()->role == 'superadmin') {
                 return redirect('menu/superadmin');
-            } elseif (Auth::user()->role == 'admin') {
+            } if (Auth::user()->role == 'admin') {
                 return redirect('menu/admin');
-            } elseif (Auth::user()->role == 'section_head') {
+            } if (Auth::user()->role == 'section_head') {
                 return redirect('menu/sechead');
-            } elseif (Auth::user()->role == 'department_head') {
+            } if (Auth::user()->role == 'department_head') {
                 return redirect('menu/dephead');
-            } elseif (Auth::user()->role == 'division_head') {
+            } if (Auth::user()->role == 'division_head') {
                 return redirect('menu/divhead');
-            } elseif (Auth::user()->role == 'hrd') {
+            } if (Auth::user()->role == 'hrd') {
                 return redirect('menu/hrd');
             }
         }else {

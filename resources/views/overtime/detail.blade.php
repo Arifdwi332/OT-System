@@ -47,6 +47,7 @@
                     <th>Waktu Mulai</th>
                     <th>Waktu Selesai</th>
                     <th>Total Waktu</th>
+                    <th>Keterangan</th>
                     <th>Status Pengajuan</th>
                 </tr>
             </thead>
@@ -58,8 +59,9 @@
                         <td>{{ $detail->jadwal_kerja }}</td>
                         <td>{{ $detail->pekerjaan_yang_dilakukan }}</td>
                         <td>{{ $detail->planOvertime->waktu_mulai }}</td>
-                        <td>{{ $detail->planOvertime->waktu_selesai }}</td>
+                        <td>{{ $detail->planOvertime->waktu_selesai }}</td> 
                         <td>{{ $detail->planOvertime->planning_waktu }} jam</td>
+                        <td>{{ $detail->keterangan}}</td>
                         <td>
                             @if($detail->planning_status == 'pending')
                                 <span class="badge badge-secondary">Pending</span>
