@@ -95,7 +95,7 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="logout" class="btn btn-danger">logout</a>
+        <a href="{{ route('logout') }}" class="btn btn-danger">logout</a>
       </li>
     </ul>
   </nav>

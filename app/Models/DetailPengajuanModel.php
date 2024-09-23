@@ -21,7 +21,7 @@ class DetailPengajuanModel extends Model
         'actual_status',
         'reject_reason',
         'current_approver',
-        'dp_status',
+        'action',
         'tul',
     ];
 

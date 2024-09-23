@@ -16,7 +16,8 @@ class CreateDetailPengajuanTable extends Migration
             $table->string('pekerjaan_yang_dilakukan');
             $table->string('keterangan')->nullable();
             $table->enum('planning_status', [
-                'pending',
+                'draft',
+                'sended',
                 'approved by section head',
                 'approved by department head',
                 'approved by division head',
@@ -27,7 +28,8 @@ class CreateDetailPengajuanTable extends Migration
                 'rejected by hrd'
             ])->nullable();
             $table->enum('actual_status', [
-                'pending',
+                'draft',
+                'sended',
                 'approved by section head',
                 'approved by department head',
                 'approved by division head',
@@ -39,7 +41,7 @@ class CreateDetailPengajuanTable extends Migration
             ])->nullable();
             $table->string('reject_reason')->nullable();
             $table->unsignedBigInteger('current_approver');
-            $table->enum('dp_status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('action', ['approved', 'rejected'])->nullable();
             $table->integer('tul')->nullable();
             $table->timestamps();
 

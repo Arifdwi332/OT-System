@@ -37,7 +37,7 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/menu/hrd',[MenuController::class,'hrd'])->middleware('userAksesMenu:hrd');
     Route::get('/menu/logout',[AuthController::class,'logout']); 
 });
-Route::get('logout',[AuthController::class,'logout']); 
+Route::get('logout',[AuthController::class,'logout'])->name('logout'); 
 
 // Karyawan
 Route::get('/karyawan',[KaryawanController::class,'index'])->name('karyawan.index'); 

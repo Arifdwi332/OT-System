@@ -8,7 +8,7 @@
 <div class="card card-secondary">
     <div class="card-header">
         <h3 class="card-title">Data Overtime</h3>
-        <a href="{{ route('overtime.planning') }}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Buat Planning</a>
+        <a href="{{ route('overtime.planning') }}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Add Planning</a>
         @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}

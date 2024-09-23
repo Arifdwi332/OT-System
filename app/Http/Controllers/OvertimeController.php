@@ -65,7 +65,7 @@ class OvertimeController extends Controller
             'planning_waktu.*' => 'required|string',
             'keterangan.*' => 'nullable|string',
             'tul.*' => 'nullable|string',
-            'dpstatus.*' => 'required|string',
+            'action.*' => 'required|string',
             'planning_status.*' => 'nullable|string',
             'actual_status.*' => 'nullable|string',
             'reject_reason.*' => 'nullable|string',
@@ -90,7 +90,7 @@ class OvertimeController extends Controller
             $planningWaktuArray = $request->planning_waktu;
             $keteranganArray = $request->keterangan;
             $tulArray = $request->tul;
-            $dpStatusArray = $request->dpstatus;
+            $actionArray = $request->action;
             $planningStatusArray = $request->planning_status;
             $actualStatusArray = $request->actual_status;
             $rejectReasonArray = $request->reject_reason;
@@ -106,11 +106,11 @@ class OvertimeController extends Controller
                 $detailPengajuan->pekerjaan_yang_dilakukan = $pekerjaanArray[$key] ?? null;
                 $detailPengajuan->keterangan = $keteranganArray[$key] ?? null;
                 $detailPengajuan->tul = $tulArray[$key] ?? null;
-                $detailPengajuan->planning_status = $planningStatusArray[$key] ?? 'pending';
-                $detailPengajuan->actual_status = $actualStatusArray[$key] ?? 'pending';
+                $detailPengajuan->planning_status = $planningStatusArray[$key] ?? 'draft';
+                $detailPengajuan->actual_status = $actualStatusArray[$key] ?? 'draft';
                 $detailPengajuan->reject_reason = $rejectReasonArray[$key] ?? 'test';
                 $detailPengajuan->current_approver = $currentApproverArray[$key] ?? Auth::user()->npk;
-                $detailPengajuan->dp_status = $dpStatusArray[$key] ?? 'pending';
+                $detailPengajuan->action = $actionArray[$key];
                 $detailPengajuan->save();
     
                 $planOvertime = new PlanOvertimeModel();
@@ -167,7 +167,7 @@ class OvertimeController extends Controller
             $planningWaktuArray = $request->planning_waktu;
             $keteranganArray = $request->keterangan;
             $tulArray = $request->tul;
-            $dpStatusArray = $request->dpstatus;
+            $actionArray = $request->action;
             $planningStatusArray = $request->planning_status;
             $actualStatusArray = $request->actual_status;
             $rejectReasonArray = $request->reject_reason;
@@ -183,11 +183,11 @@ class OvertimeController extends Controller
                 $detailPengajuan->pekerjaan_yang_dilakukan = $pekerjaanArray[$key] ?? null;
                 $detailPengajuan->keterangan = $keteranganArray[$key] ?? null;
                 $detailPengajuan->tul = $tulArray[$key] ?? null;
-                $detailPengajuan->planning_status = $planningStatusArray[$key] ?? 'pending';
-                $detailPengajuan->actual_status = $actualStatusArray[$key] ?? 'pending';
+                $detailPengajuan->planning_status = $planningStatusArray[$key] ?? 'draft';
+                $detailPengajuan->actual_status = $actualStatusArray[$key] ?? 'draft';
                 $detailPengajuan->reject_reason = $rejectReasonArray[$key] ?? null;
                 $detailPengajuan->current_approver = $currentApproverArray[$key] ?? Auth::user()->npk;
-                $detailPengajuan->dp_status = $dpStatusArray[$key] ?? 'pending';
+                $detailPengajuan->action = $$actionArray[$key] ?? null;
                 $detailPengajuan->save();
 
                 $planOvertime = new PlanOvertimeModel();
